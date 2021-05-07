@@ -10,6 +10,16 @@ link-citations: yes
 description: "TBA"
 ---
 
-# Prerequisites
 
-TBA
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+```
+
+# Summary
+
+- Descrive Japanese Labor market from 1986-2021.
+
+- Use the [Labor force survey](https://www.stat.go.jp/english/data/roudou/index.html), which is open-access and includes similar variables as the current population survey in U.S.
+
