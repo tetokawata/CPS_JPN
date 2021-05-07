@@ -1,1 +1,1 @@
-# CPS_JPN
+This page reports labor market indicators from Japanese CPS.
