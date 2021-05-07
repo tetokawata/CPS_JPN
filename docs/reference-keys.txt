@@ -1,11 +1,11 @@
 summary
-simple-description
+simple-description-long-run
 environment
 data
 employment-rate
 year-to-year-difference-of-employment-rate
 gender-gap
-simple-description-1
+simple-description
 environment-1
 data-1
 employment-rate-1

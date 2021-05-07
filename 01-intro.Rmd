@@ -1,4 +1,4 @@
-# Simple description
+# Simple description: Long-run
 
 ## Environment
 
