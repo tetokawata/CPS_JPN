@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE,
 
 # Summary
 
-- Descrive Japanese Labor market from 1986-2021.
+- Describe Japanese Labor market from 1986-2021.
 
 - Use the [Labor force survey](https://www.stat.go.jp/english/data/roudou/index.html), which is open-access and includes similar variables as the current population survey in U.S.
 
