@@ -1,7 +1,13 @@
 summary
-intro
+simple-description
 environment
 data
 employment-rate
 year-to-year-difference-of-employment-rate
 gender-gap
+simple-description-1
+environment-1
+data-1
+employment-rate-1
+year-to-year-difference-of-employment-rate-1
+gender-gap-1

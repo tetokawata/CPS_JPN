@@ -25,6 +25,7 @@ raw <-
 
 ```{r}
 raw %>%
+  filter(date >= "2019-01-01") %>%
   ggplot(aes(x = date,
              y = employment,
              color = sex)
@@ -50,12 +51,13 @@ raw %>%
            month) %>%
   mutate(employment = employment - lag(employment)) %>%
   ungroup %>%
-  filter(year >= 1969) %>%
+  filter(year >= 2019) %>%
   ggplot(aes(x = date,
              y = employment,
              color = sex)
          ) +
   geom_line() +
+  geom_point() +
   geom_hline(yintercept = 0) +
   ylab("") +
   xlab("") +
@@ -80,7 +82,7 @@ raw %>%
            month) %>%
   mutate(employment = employment - lag(employment)) %>%
   ungroup %>%
-  filter(year >= 1969) %>%
+  filter(year >= 2019) %>%
   arrange(date,
           sex) %>%
   group_by(date) %>%
@@ -91,6 +93,7 @@ raw %>%
              y = employment)
          ) +
   geom_line() +
+  geom_point() +
   geom_hline(yintercept = 0) +
   ylab("") +
   xlab("") +
