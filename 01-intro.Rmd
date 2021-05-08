@@ -1,5 +1,7 @@
 # Simple description: Long-run
 
+- Describe labor market after 1969.
+
 ## Environment
 
 ```{r}
@@ -13,10 +15,31 @@ library(lubridate)
 
 ```{r}
 raw <- 
-  fread("data/aggregate_time_series.csv") %>%
+  read_csv("data/aggregate_time_series.csv") %>%
   mutate(date = ymd(date),
-         employment = as.numeric(就業者)/as.numeric(`15歳以上人口`),
-         sex = if_else(性別 == "男", "male", "female"))
+         year = year(date),
+         month = month(date),
+         quaterly = if_else(month >= 1 & month <= 3, 1, 0),
+         quaterly = if_else(month >= 4 & month <= 6, 2, quaterly),
+         quaterly = if_else(month >= 7 & month <= 9, 3, quaterly),
+         quaterly = if_else(month >= 10 & month <= 12, 4, quaterly),
+         employment = as.numeric(就業者),
+         population = as.numeric(`15歳以上人口`),
+         sex = if_else(性別 == "男", "male", "female")
+         ) %>%
+  select(date,year:sex) %>%
+  arrange(sex,year,quaterly) %>%
+  group_by(sex,year,quaterly) %>%
+  mutate(employment = sum(employment),
+         population = sum(population)
+         ) %>%
+  ungroup %>%
+  mutate(employment_rate = employment/population) %>%
+  filter(month == 1 | 
+           month == 4 | 
+           month == 7 | 
+           month == 10)
+
 ```
 
 ## Employment rate
@@ -25,8 +48,9 @@ raw <-
 
 ```{r}
 raw %>%
+  mutate(y = employment_rate) %>%
   ggplot(aes(x = date,
-             y = employment,
+             y = y,
              color = sex)
          ) +
   geom_line() +
@@ -40,19 +64,16 @@ raw %>%
 
 ```{r}
 raw %>%
-  mutate(year = year(date),
-         month = month(date)
-         ) %>%
   arrange(sex,
-          month,
+          quaterly,
           year) %>%
   group_by(sex,
-           month) %>%
-  mutate(employment = employment - lag(employment)) %>%
+           quaterly) %>%
+  mutate(y = employment_rate - lag(employment_rate)) %>%
   ungroup %>%
   filter(year >= 1969) %>%
   ggplot(aes(x = date,
-             y = employment,
+             y = y,
              color = sex)
          ) +
   geom_line() +
@@ -70,25 +91,22 @@ raw %>%
 
 ```{r}
 raw %>%
-  mutate(year = year(date),
-         month = month(date)
-         ) %>%
   arrange(sex,
-          month,
+          quaterly,
           year) %>%
   group_by(sex,
-           month) %>%
-  mutate(employment = employment - lag(employment)) %>%
+           quaterly) %>%
+  mutate(y = employment_rate - lag(employment_rate)) %>%
   ungroup %>%
   filter(year >= 1969) %>%
   arrange(date,
           sex) %>%
   group_by(date) %>%
-  mutate(employment = employment - lag(employment)) %>%
+  mutate(y = y - lag(y)) %>%
   ungroup %>%
   filter(sex == "male") %>%
   ggplot(aes(x = date,
-             y = employment)
+             y = y)
          ) +
   geom_line() +
   geom_hline(yintercept = 0) +
@@ -96,4 +114,33 @@ raw %>%
   xlab("") +
   theme_bw()
 ```
+
+# Alternative mesuare
+
+## Year-to-year difference of employment rate
+
+- Report change of employment rate $\tilde e_{g,m,y}=\frac{e_{g,m,y}}{e_{g,m,y-1}}$
+
+```{r}
+raw %>%
+  arrange(sex,
+          quaterly,
+          year) %>%
+  group_by(sex,
+           quaterly) %>%
+  mutate(y = employment_rate/lag(employment_rate)) %>%
+  ungroup %>%
+  filter(year >= 1969) %>%
+  ggplot(aes(x = date,
+             y = y,
+             color = sex)
+         ) +
+  geom_line() +
+  geom_hline(yintercept = 1) +
+  ylab("") +
+  xlab("") +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
 

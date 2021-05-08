@@ -5,9 +5,9 @@ data
 employment-rate
 year-to-year-difference-of-employment-rate
 gender-gap
-simple-description
-environment-1
-data-1
-employment-rate-1
+alternative-mesuare
 year-to-year-difference-of-employment-rate-1
+simple-description
+employment-rate-1
+year-to-year-difference-of-employment-rate-2
 gender-gap-1

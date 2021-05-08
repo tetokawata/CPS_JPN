@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="simple-description.html"/>
+<link rel="next" href="alternative-mesuare.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -142,13 +142,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="simple-description-long-run.html"><a href="simple-description-long-run.html#year-to-year-difference-of-employment-rate"><i class="fa fa-check"></i><b>2.4</b> Year-to-year difference of employment rate</a></li>
 <li class="chapter" data-level="2.5" data-path="simple-description-long-run.html"><a href="simple-description-long-run.html#gender-gap"><i class="fa fa-check"></i><b>2.5</b> Gender gap</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="simple-description.html"><a href="simple-description.html"><i class="fa fa-check"></i><b>3</b> Simple description</a>
+<li class="chapter" data-level="3" data-path="alternative-mesuare.html"><a href="alternative-mesuare.html"><i class="fa fa-check"></i><b>3</b> Alternative mesuare</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="simple-description.html"><a href="simple-description.html#environment-1"><i class="fa fa-check"></i><b>3.1</b> Environment</a></li>
-<li class="chapter" data-level="3.2" data-path="simple-description.html"><a href="simple-description.html#data-1"><i class="fa fa-check"></i><b>3.2</b> Data</a></li>
-<li class="chapter" data-level="3.3" data-path="simple-description.html"><a href="simple-description.html#employment-rate-1"><i class="fa fa-check"></i><b>3.3</b> Employment rate</a></li>
-<li class="chapter" data-level="3.4" data-path="simple-description.html"><a href="simple-description.html#year-to-year-difference-of-employment-rate-1"><i class="fa fa-check"></i><b>3.4</b> Year-to-year difference of employment rate</a></li>
-<li class="chapter" data-level="3.5" data-path="simple-description.html"><a href="simple-description.html#gender-gap-1"><i class="fa fa-check"></i><b>3.5</b> Gender gap</a></li>
+<li class="chapter" data-level="3.1" data-path="alternative-mesuare.html"><a href="alternative-mesuare.html#year-to-year-difference-of-employment-rate-1"><i class="fa fa-check"></i><b>3.1</b> Year-to-year difference of employment rate</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="simple-description.html"><a href="simple-description.html"><i class="fa fa-check"></i><b>4</b> Simple description</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="simple-description.html"><a href="simple-description.html#employment-rate-1"><i class="fa fa-check"></i><b>4.1</b> Employment rate</a></li>
+<li class="chapter" data-level="4.2" data-path="simple-description.html"><a href="simple-description.html#year-to-year-difference-of-employment-rate-2"><i class="fa fa-check"></i><b>4.2</b> Year-to-year difference of employment rate</a></li>
+<li class="chapter" data-level="4.3" data-path="simple-description.html"><a href="simple-description.html#gender-gap-1"><i class="fa fa-check"></i><b>4.3</b> Gender gap</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -173,6 +175,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="simple-description-long-run" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Simple description: Long-run</h1>
+<ul>
+<li>Describe labor market after 1969.</li>
+</ul>
 <div id="environment" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Environment</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="simple-description-long-run.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
@@ -183,10 +188,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Data</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="simple-description-long-run.html#cb2-1" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> </span>
-<span id="cb2-2"><a href="simple-description-long-run.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fread</span>(<span class="st">&quot;data/aggregate_time_series.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="simple-description-long-run.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="st">&quot;data/aggregate_time_series.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb2-3"><a href="simple-description-long-run.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">ymd</span>(date),</span>
-<span id="cb2-4"><a href="simple-description-long-run.html#cb2-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">employment =</span> <span class="fu">as.numeric</span>(就業者)<span class="sc">/</span><span class="fu">as.numeric</span>(<span class="st">`</span><span class="at">15歳以上人口</span><span class="st">`</span>),</span>
-<span id="cb2-5"><a href="simple-description-long-run.html#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="fu">if_else</span>(性別 <span class="sc">==</span> <span class="st">&quot;男&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>))</span></code></pre></div>
+<span id="cb2-4"><a href="simple-description-long-run.html#cb2-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">year =</span> <span class="fu">year</span>(date),</span>
+<span id="cb2-5"><a href="simple-description-long-run.html#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">month =</span> <span class="fu">month</span>(date),</span>
+<span id="cb2-6"><a href="simple-description-long-run.html#cb2-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">quaterly =</span> <span class="fu">if_else</span>(month <span class="sc">&gt;=</span> <span class="dv">1</span> <span class="sc">&amp;</span> month <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb2-7"><a href="simple-description-long-run.html#cb2-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">quaterly =</span> <span class="fu">if_else</span>(month <span class="sc">&gt;=</span> <span class="dv">4</span> <span class="sc">&amp;</span> month <span class="sc">&lt;=</span> <span class="dv">6</span>, <span class="dv">2</span>, quaterly),</span>
+<span id="cb2-8"><a href="simple-description-long-run.html#cb2-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">quaterly =</span> <span class="fu">if_else</span>(month <span class="sc">&gt;=</span> <span class="dv">7</span> <span class="sc">&amp;</span> month <span class="sc">&lt;=</span> <span class="dv">9</span>, <span class="dv">3</span>, quaterly),</span>
+<span id="cb2-9"><a href="simple-description-long-run.html#cb2-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">quaterly =</span> <span class="fu">if_else</span>(month <span class="sc">&gt;=</span> <span class="dv">10</span> <span class="sc">&amp;</span> month <span class="sc">&lt;=</span> <span class="dv">12</span>, <span class="dv">4</span>, quaterly),</span>
+<span id="cb2-10"><a href="simple-description-long-run.html#cb2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">employment =</span> <span class="fu">as.numeric</span>(就業者),</span>
+<span id="cb2-11"><a href="simple-description-long-run.html#cb2-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">population =</span> <span class="fu">as.numeric</span>(<span class="st">`</span><span class="at">15歳以上人口</span><span class="st">`</span>),</span>
+<span id="cb2-12"><a href="simple-description-long-run.html#cb2-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">sex =</span> <span class="fu">if_else</span>(性別 <span class="sc">==</span> <span class="st">&quot;男&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>)</span>
+<span id="cb2-13"><a href="simple-description-long-run.html#cb2-13" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-14"><a href="simple-description-long-run.html#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date,year<span class="sc">:</span>sex) <span class="sc">%&gt;%</span></span>
+<span id="cb2-15"><a href="simple-description-long-run.html#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sex,year,quaterly) <span class="sc">%&gt;%</span></span>
+<span id="cb2-16"><a href="simple-description-long-run.html#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex,year,quaterly) <span class="sc">%&gt;%</span></span>
+<span id="cb2-17"><a href="simple-description-long-run.html#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">employment =</span> <span class="fu">sum</span>(employment),</span>
+<span id="cb2-18"><a href="simple-description-long-run.html#cb2-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">population =</span> <span class="fu">sum</span>(population)</span>
+<span id="cb2-19"><a href="simple-description-long-run.html#cb2-19" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-20"><a href="simple-description-long-run.html#cb2-20" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
+<span id="cb2-21"><a href="simple-description-long-run.html#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">employment_rate =</span> employment<span class="sc">/</span>population) <span class="sc">%&gt;%</span></span>
+<span id="cb2-22"><a href="simple-description-long-run.html#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> </span>
+<span id="cb2-23"><a href="simple-description-long-run.html#cb2-23" aria-hidden="true" tabindex="-1"></a>           month <span class="sc">==</span> <span class="dv">4</span> <span class="sc">|</span> </span>
+<span id="cb2-24"><a href="simple-description-long-run.html#cb2-24" aria-hidden="true" tabindex="-1"></a>           month <span class="sc">==</span> <span class="dv">7</span> <span class="sc">|</span> </span>
+<span id="cb2-25"><a href="simple-description-long-run.html#cb2-25" aria-hidden="true" tabindex="-1"></a>           month <span class="sc">==</span> <span class="dv">10</span>)</span></code></pre></div>
 </div>
 <div id="employment-rate" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Employment rate</h2>
@@ -194,13 +219,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Report <span class="math inline">\(e_{g,m,y} = \frac{Employment_{g,m,y}}{Population_{g,m,y}}\)</span>, where <span class="math inline">\(Employment_{g,m,y}\)</span> and <span class="math inline">\(Population_{g,m,y}\)</span> are numbers of employment and population over 15 years old in month <span class="math inline">\(m\)</span>, year <span class="math inline">\(y\)</span> and gender group <span class="math inline">\(g\)</span>, respectively.</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="simple-description-long-run.html#cb3-1" aria-hidden="true" tabindex="-1"></a>raw <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="simple-description-long-run.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date,</span>
-<span id="cb3-3"><a href="simple-description-long-run.html#cb3-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> employment,</span>
-<span id="cb3-4"><a href="simple-description-long-run.html#cb3-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> sex)</span>
-<span id="cb3-5"><a href="simple-description-long-run.html#cb3-5" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
-<span id="cb3-6"><a href="simple-description-long-run.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb3-7"><a href="simple-description-long-run.html#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb3-8"><a href="simple-description-long-run.html#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;employment rate&quot;</span>)</span></code></pre></div>
+<span id="cb3-2"><a href="simple-description-long-run.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> employment_rate) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="simple-description-long-run.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date,</span>
+<span id="cb3-4"><a href="simple-description-long-run.html#cb3-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> y,</span>
+<span id="cb3-5"><a href="simple-description-long-run.html#cb3-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> sex)</span>
+<span id="cb3-6"><a href="simple-description-long-run.html#cb3-6" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="simple-description-long-run.html#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb3-8"><a href="simple-description-long-run.html#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb3-9"><a href="simple-description-long-run.html#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;employment rate&quot;</span>)</span></code></pre></div>
 <p><img src="CPS_Japan_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="year-to-year-difference-of-employment-rate" class="section level2" number="2.4">
@@ -209,27 +235,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Report change of employment rate <span class="math inline">\(\tilde e_{g,m,y}=e_{g,m,y}-e_{g,m,y-1}\)</span></li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="simple-description-long-run.html#cb4-1" aria-hidden="true" tabindex="-1"></a>raw <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="simple-description-long-run.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date),</span>
-<span id="cb4-3"><a href="simple-description-long-run.html#cb4-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">month =</span> <span class="fu">month</span>(date)</span>
-<span id="cb4-4"><a href="simple-description-long-run.html#cb4-4" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
-<span id="cb4-5"><a href="simple-description-long-run.html#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sex,</span>
-<span id="cb4-6"><a href="simple-description-long-run.html#cb4-6" aria-hidden="true" tabindex="-1"></a>          month,</span>
-<span id="cb4-7"><a href="simple-description-long-run.html#cb4-7" aria-hidden="true" tabindex="-1"></a>          year) <span class="sc">%&gt;%</span></span>
-<span id="cb4-8"><a href="simple-description-long-run.html#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex,</span>
-<span id="cb4-9"><a href="simple-description-long-run.html#cb4-9" aria-hidden="true" tabindex="-1"></a>           month) <span class="sc">%&gt;%</span></span>
-<span id="cb4-10"><a href="simple-description-long-run.html#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">employment =</span> employment <span class="sc">-</span> <span class="fu">lag</span>(employment)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-11"><a href="simple-description-long-run.html#cb4-11" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
-<span id="cb4-12"><a href="simple-description-long-run.html#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1969</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-13"><a href="simple-description-long-run.html#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date,</span>
-<span id="cb4-14"><a href="simple-description-long-run.html#cb4-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> employment,</span>
-<span id="cb4-15"><a href="simple-description-long-run.html#cb4-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> sex)</span>
-<span id="cb4-16"><a href="simple-description-long-run.html#cb4-16" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
-<span id="cb4-17"><a href="simple-description-long-run.html#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb4-18"><a href="simple-description-long-run.html#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb4-19"><a href="simple-description-long-run.html#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
-<span id="cb4-20"><a href="simple-description-long-run.html#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
-<span id="cb4-21"><a href="simple-description-long-run.html#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb4-22"><a href="simple-description-long-run.html#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<span id="cb4-2"><a href="simple-description-long-run.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sex,</span>
+<span id="cb4-3"><a href="simple-description-long-run.html#cb4-3" aria-hidden="true" tabindex="-1"></a>          quaterly,</span>
+<span id="cb4-4"><a href="simple-description-long-run.html#cb4-4" aria-hidden="true" tabindex="-1"></a>          year) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="simple-description-long-run.html#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex,</span>
+<span id="cb4-6"><a href="simple-description-long-run.html#cb4-6" aria-hidden="true" tabindex="-1"></a>           quaterly) <span class="sc">%&gt;%</span></span>
+<span id="cb4-7"><a href="simple-description-long-run.html#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> employment_rate <span class="sc">-</span> <span class="fu">lag</span>(employment_rate)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-8"><a href="simple-description-long-run.html#cb4-8" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
+<span id="cb4-9"><a href="simple-description-long-run.html#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1969</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-10"><a href="simple-description-long-run.html#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date,</span>
+<span id="cb4-11"><a href="simple-description-long-run.html#cb4-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> y,</span>
+<span id="cb4-12"><a href="simple-description-long-run.html#cb4-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> sex)</span>
+<span id="cb4-13"><a href="simple-description-long-run.html#cb4-13" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb4-14"><a href="simple-description-long-run.html#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb4-15"><a href="simple-description-long-run.html#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="simple-description-long-run.html#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-17"><a href="simple-description-long-run.html#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="simple-description-long-run.html#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb4-19"><a href="simple-description-long-run.html#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
 <p><img src="CPS_Japan_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 <div id="gender-gap" class="section level2" number="2.5">
@@ -238,33 +261,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Report change of employment rate <span class="math inline">\(\tilde e_{male,m,y} - \tilde e_{female,m,y}\)</span></li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="simple-description-long-run.html#cb5-1" aria-hidden="true" tabindex="-1"></a>raw <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="simple-description-long-run.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">year</span>(date),</span>
-<span id="cb5-3"><a href="simple-description-long-run.html#cb5-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">month =</span> <span class="fu">month</span>(date)</span>
-<span id="cb5-4"><a href="simple-description-long-run.html#cb5-4" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a href="simple-description-long-run.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sex,</span>
-<span id="cb5-6"><a href="simple-description-long-run.html#cb5-6" aria-hidden="true" tabindex="-1"></a>          month,</span>
-<span id="cb5-7"><a href="simple-description-long-run.html#cb5-7" aria-hidden="true" tabindex="-1"></a>          year) <span class="sc">%&gt;%</span></span>
-<span id="cb5-8"><a href="simple-description-long-run.html#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex,</span>
-<span id="cb5-9"><a href="simple-description-long-run.html#cb5-9" aria-hidden="true" tabindex="-1"></a>           month) <span class="sc">%&gt;%</span></span>
-<span id="cb5-10"><a href="simple-description-long-run.html#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">employment =</span> employment <span class="sc">-</span> <span class="fu">lag</span>(employment)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-11"><a href="simple-description-long-run.html#cb5-11" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
-<span id="cb5-12"><a href="simple-description-long-run.html#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1969</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-13"><a href="simple-description-long-run.html#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date,</span>
-<span id="cb5-14"><a href="simple-description-long-run.html#cb5-14" aria-hidden="true" tabindex="-1"></a>          sex) <span class="sc">%&gt;%</span></span>
-<span id="cb5-15"><a href="simple-description-long-run.html#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
-<span id="cb5-16"><a href="simple-description-long-run.html#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">employment =</span> employment <span class="sc">-</span> <span class="fu">lag</span>(employment)) <span class="sc">%&gt;%</span></span>
-<span id="cb5-17"><a href="simple-description-long-run.html#cb5-17" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
-<span id="cb5-18"><a href="simple-description-long-run.html#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;male&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-19"><a href="simple-description-long-run.html#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date,</span>
-<span id="cb5-20"><a href="simple-description-long-run.html#cb5-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> employment)</span>
-<span id="cb5-21"><a href="simple-description-long-run.html#cb5-21" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
-<span id="cb5-22"><a href="simple-description-long-run.html#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb5-23"><a href="simple-description-long-run.html#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb5-24"><a href="simple-description-long-run.html#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
-<span id="cb5-25"><a href="simple-description-long-run.html#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
-<span id="cb5-26"><a href="simple-description-long-run.html#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<span id="cb5-2"><a href="simple-description-long-run.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sex,</span>
+<span id="cb5-3"><a href="simple-description-long-run.html#cb5-3" aria-hidden="true" tabindex="-1"></a>          quaterly,</span>
+<span id="cb5-4"><a href="simple-description-long-run.html#cb5-4" aria-hidden="true" tabindex="-1"></a>          year) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="simple-description-long-run.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex,</span>
+<span id="cb5-6"><a href="simple-description-long-run.html#cb5-6" aria-hidden="true" tabindex="-1"></a>           quaterly) <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="simple-description-long-run.html#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> employment_rate <span class="sc">-</span> <span class="fu">lag</span>(employment_rate)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="simple-description-long-run.html#cb5-8" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="simple-description-long-run.html#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1969</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-10"><a href="simple-description-long-run.html#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(date,</span>
+<span id="cb5-11"><a href="simple-description-long-run.html#cb5-11" aria-hidden="true" tabindex="-1"></a>          sex) <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="simple-description-long-run.html#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date) <span class="sc">%&gt;%</span></span>
+<span id="cb5-13"><a href="simple-description-long-run.html#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> y <span class="sc">-</span> <span class="fu">lag</span>(y)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-14"><a href="simple-description-long-run.html#cb5-14" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
+<span id="cb5-15"><a href="simple-description-long-run.html#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">&quot;male&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-16"><a href="simple-description-long-run.html#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date,</span>
+<span id="cb5-17"><a href="simple-description-long-run.html#cb5-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> y)</span>
+<span id="cb5-18"><a href="simple-description-long-run.html#cb5-18" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb5-19"><a href="simple-description-long-run.html#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb5-20"><a href="simple-description-long-run.html#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb5-21"><a href="simple-description-long-run.html#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-22"><a href="simple-description-long-run.html#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-23"><a href="simple-description-long-run.html#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><img src="CPS_Japan_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-
 </div>
 </div>
             </section>
@@ -273,7 +292,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="simple-description.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="alternative-mesuare.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

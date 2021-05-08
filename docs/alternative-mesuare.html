@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>CPS in Japan</title>
+  <title>Chapter 3 Alternative mesuare | CPS in Japan</title>
   <meta name="description" content="TBA" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="CPS in Japan" />
+  <meta property="og:title" content="Chapter 3 Alternative mesuare | CPS in Japan" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="CPS in Japan" />
+  <meta name="twitter:title" content="Chapter 3 Alternative mesuare | CPS in Japan" />
   
   <meta name="twitter:description" content="TBA" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="simple-description-long-run.html"/>
+<link rel="prev" href="simple-description-long-run.html"/>
+<link rel="next" href="simple-description.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -173,25 +173,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">CPS in Japan</h1>
-<p class="author"><em>Keisuke Kawata</em></p>
-<p class="date"><em>2021-05-08</em></p>
-</div>
-<div id="summary" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Summary</h1>
+<div id="alternative-mesuare" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Alternative mesuare</h1>
+<div id="year-to-year-difference-of-employment-rate-1" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Year-to-year difference of employment rate</h2>
 <ul>
-<li>Use the <a href="https://www.stat.go.jp/english/data/roudou/index.html">Labor force survey</a>, which is open-access and includes similar variables as the current population survey in U.S.</li>
+<li>Report change of employment rate <span class="math inline">\(\tilde e_{g,m,y}=\frac{e_{g,m,y}}{e_{g,m,y-1}}\)</span></li>
 </ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="alternative-mesuare.html#cb6-1" aria-hidden="true" tabindex="-1"></a>raw <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="alternative-mesuare.html#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(sex,</span>
+<span id="cb6-3"><a href="alternative-mesuare.html#cb6-3" aria-hidden="true" tabindex="-1"></a>          quaterly,</span>
+<span id="cb6-4"><a href="alternative-mesuare.html#cb6-4" aria-hidden="true" tabindex="-1"></a>          year) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="alternative-mesuare.html#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex,</span>
+<span id="cb6-6"><a href="alternative-mesuare.html#cb6-6" aria-hidden="true" tabindex="-1"></a>           quaterly) <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="alternative-mesuare.html#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">y =</span> employment_rate<span class="sc">/</span><span class="fu">lag</span>(employment_rate)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="alternative-mesuare.html#cb6-8" aria-hidden="true" tabindex="-1"></a>  ungroup <span class="sc">%&gt;%</span></span>
+<span id="cb6-9"><a href="alternative-mesuare.html#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1969</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-10"><a href="alternative-mesuare.html#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date,</span>
+<span id="cb6-11"><a href="alternative-mesuare.html#cb6-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> y,</span>
+<span id="cb6-12"><a href="alternative-mesuare.html#cb6-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> sex)</span>
+<span id="cb6-13"><a href="alternative-mesuare.html#cb6-13" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="alternative-mesuare.html#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb6-15"><a href="alternative-mesuare.html#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb6-16"><a href="alternative-mesuare.html#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-17"><a href="alternative-mesuare.html#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-18"><a href="alternative-mesuare.html#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb6-19"><a href="alternative-mesuare.html#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="CPS_Japan_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="simple-description-long-run.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="simple-description-long-run.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simple-description.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
