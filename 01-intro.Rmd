@@ -27,7 +27,6 @@ raw <-
          population = as.numeric(`15歳以上人口`),
          sex = if_else(性別 == "男", "male", "female")
          ) %>%
-  select(date,year:sex) %>%
   arrange(sex,year,quaterly) %>%
   group_by(sex,year,quaterly) %>%
   mutate(employment = sum(employment),
@@ -60,68 +59,9 @@ raw %>%
 
 ## Year-to-year difference of employment rate
 
-- Report change of employment rate $\tilde e_{g,m,y}=e_{g,m,y}-e_{g,m,y-1}$
+- Report change of employment rate $\tilde e_{g,m,y}=e_{g,m,y}/e_{g,m,y-1}$
 
-```{r}
-raw %>%
-  arrange(sex,
-          quaterly,
-          year) %>%
-  group_by(sex,
-           quaterly) %>%
-  mutate(y = employment_rate - lag(employment_rate)) %>%
-  ungroup %>%
-  filter(year >= 1969) %>%
-  ggplot(aes(x = date,
-             y = y,
-             color = sex)
-         ) +
-  geom_line() +
-  geom_hline(yintercept = 0) +
-  ylab("") +
-  xlab("") +
-  theme_bw() +
-  theme(legend.position = "bottom")
-```
-
-
-## Gender gap
-
-- Report change of employment rate $\tilde e_{male,m,y} - \tilde e_{female,m,y}$
-
-```{r}
-raw %>%
-  arrange(sex,
-          quaterly,
-          year) %>%
-  group_by(sex,
-           quaterly) %>%
-  mutate(y = employment_rate - lag(employment_rate)) %>%
-  ungroup %>%
-  filter(year >= 1969) %>%
-  arrange(date,
-          sex) %>%
-  group_by(date) %>%
-  mutate(y = y - lag(y)) %>%
-  ungroup %>%
-  filter(sex == "male") %>%
-  ggplot(aes(x = date,
-             y = y)
-         ) +
-  geom_line() +
-  geom_hline(yintercept = 0) +
-  ylab("") +
-  xlab("") +
-  theme_bw()
-```
-
-# Alternative mesuare
-
-## Year-to-year difference of employment rate
-
-- Report change of employment rate $\tilde e_{g,m,y}=\frac{e_{g,m,y}}{e_{g,m,y-1}}$
-
-```{r}
+```{r y_to_y}
 raw %>%
   arrange(sex,
           quaterly,
@@ -143,4 +83,32 @@ raw %>%
   theme(legend.position = "bottom")
 ```
 
+## Gender gap
 
+- Report change of employment rate $\tilde e_{male,m,y} - \tilde e_{female,m,y}$
+
+```{r}
+raw %>%
+  arrange(sex,
+          quaterly,
+          year) %>%
+  group_by(sex,
+           quaterly) %>%
+  mutate(y = employment_rate/lag(employment_rate)) %>%
+  ungroup %>%
+  filter(year >= 1969) %>%
+  arrange(date,
+          sex) %>%
+  group_by(date) %>%
+  mutate(y = y - lag(y)) %>%
+  ungroup %>%
+  filter(sex == "male") %>%
+  ggplot(aes(x = date,
+             y = y)
+         ) +
+  geom_line() +
+  geom_hline(yintercept = 0) +
+  ylab("") +
+  xlab("") +
+  theme_bw()
+```

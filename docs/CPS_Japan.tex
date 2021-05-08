@@ -42,46 +42,6 @@
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{248,248,248}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\BuiltInTok}[1]{#1}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
-\newcommand{\ExtensionTok}[1]{#1}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ImportTok}[1]{#1}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{#1}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -148,47 +108,8 @@
 \hypertarget{environment}{%
 \section{Environment}\label{environment}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(data.table)}
-\FunctionTok{library}\NormalTok{(tidytable)}
-\FunctionTok{library}\NormalTok{(tidyverse)}
-\FunctionTok{library}\NormalTok{(lubridate)}
-\end{Highlighting}
-\end{Shaded}
-
 \hypertarget{data}{%
 \section{Data}\label{data}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{raw }\OtherTok{\textless{}{-}} 
-  \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/aggregate\_time\_series.csv"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{date =} \FunctionTok{ymd}\NormalTok{(date),}
-         \AttributeTok{year =} \FunctionTok{year}\NormalTok{(date),}
-         \AttributeTok{month =} \FunctionTok{month}\NormalTok{(date),}
-         \AttributeTok{quaterly =} \FunctionTok{if\_else}\NormalTok{(month }\SpecialCharTok{\textgreater{}=} \DecValTok{1} \SpecialCharTok{\&}\NormalTok{ month }\SpecialCharTok{\textless{}=} \DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{),}
-         \AttributeTok{quaterly =} \FunctionTok{if\_else}\NormalTok{(month }\SpecialCharTok{\textgreater{}=} \DecValTok{4} \SpecialCharTok{\&}\NormalTok{ month }\SpecialCharTok{\textless{}=} \DecValTok{6}\NormalTok{, }\DecValTok{2}\NormalTok{, quaterly),}
-         \AttributeTok{quaterly =} \FunctionTok{if\_else}\NormalTok{(month }\SpecialCharTok{\textgreater{}=} \DecValTok{7} \SpecialCharTok{\&}\NormalTok{ month }\SpecialCharTok{\textless{}=} \DecValTok{9}\NormalTok{, }\DecValTok{3}\NormalTok{, quaterly),}
-         \AttributeTok{quaterly =} \FunctionTok{if\_else}\NormalTok{(month }\SpecialCharTok{\textgreater{}=} \DecValTok{10} \SpecialCharTok{\&}\NormalTok{ month }\SpecialCharTok{\textless{}=} \DecValTok{12}\NormalTok{, }\DecValTok{4}\NormalTok{, quaterly),}
-         \AttributeTok{employment =} \FunctionTok{as.numeric}\NormalTok{(就業者),}
-         \AttributeTok{population =} \FunctionTok{as.numeric}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{15歳以上人口}\StringTok{\textasciigrave{}}\NormalTok{),}
-         \AttributeTok{sex =} \FunctionTok{if\_else}\NormalTok{(性別 }\SpecialCharTok{==} \StringTok{"男"}\NormalTok{, }\StringTok{"male"}\NormalTok{, }\StringTok{"female"}\NormalTok{)}
-\NormalTok{         ) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(date,year}\SpecialCharTok{:}\NormalTok{sex) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{arrange}\NormalTok{(sex,year,quaterly) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(sex,year,quaterly) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{employment =} \FunctionTok{sum}\NormalTok{(employment),}
-         \AttributeTok{population =} \FunctionTok{sum}\NormalTok{(population)}
-\NormalTok{         ) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  ungroup }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{employment\_rate =}\NormalTok{ employment}\SpecialCharTok{/}\NormalTok{population) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(month }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{|} 
-\NormalTok{           month }\SpecialCharTok{==} \DecValTok{4} \SpecialCharTok{|} 
-\NormalTok{           month }\SpecialCharTok{==} \DecValTok{7} \SpecialCharTok{|} 
-\NormalTok{           month }\SpecialCharTok{==} \DecValTok{10}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
 \hypertarget{employment-rate}{%
 \section{Employment rate}\label{employment-rate}}
@@ -199,20 +120,6 @@
   Report \(e_{g,m,y} = \frac{Employment_{g,m,y}}{Population_{g,m,y}}\), where \(Employment_{g,m,y}\) and \(Population_{g,m,y}\) are numbers of employment and population over 15 years old in month \(m\), year \(y\) and gender group \(g\), respectively.
 \end{itemize}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{y =}\NormalTok{ employment\_rate) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date,}
-             \AttributeTok{y =}\NormalTok{ y,}
-             \AttributeTok{color =}\NormalTok{ sex)}
-\NormalTok{         ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"employment rate"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \includegraphics{CPS_Japan_files/figure-latex/unnamed-chunk-3-1.pdf}
 
 \hypertarget{year-to-year-difference-of-employment-rate}{%
@@ -221,34 +128,10 @@
 \begin{itemize}
 \tightlist
 \item
-  Report change of employment rate \(\tilde e_{g,m,y}=e_{g,m,y}-e_{g,m,y-1}\)
+  Report change of employment rate \(\tilde e_{g,m,y}=e_{g,m,y}/e_{g,m,y-1}\)
 \end{itemize}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{arrange}\NormalTok{(sex,}
-\NormalTok{          quaterly,}
-\NormalTok{          year) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(sex,}
-\NormalTok{           quaterly) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{y =}\NormalTok{ employment\_rate }\SpecialCharTok{{-}} \FunctionTok{lag}\NormalTok{(employment\_rate)) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  ungroup }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{\textgreater{}=} \DecValTok{1969}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date,}
-             \AttributeTok{y =}\NormalTok{ y,}
-             \AttributeTok{color =}\NormalTok{ sex)}
-\NormalTok{         ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{CPS_Japan_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{CPS_Japan_files/figure-latex/y_to_y-1.pdf}
 
 \hypertarget{gender-gap}{%
 \section{Gender gap}\label{gender-gap}}
@@ -259,82 +142,22 @@
   Report change of employment rate \(\tilde e_{male,m,y} - \tilde e_{female,m,y}\)
 \end{itemize}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{arrange}\NormalTok{(sex,}
-\NormalTok{          quaterly,}
-\NormalTok{          year) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(sex,}
-\NormalTok{           quaterly) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{y =}\NormalTok{ employment\_rate }\SpecialCharTok{{-}} \FunctionTok{lag}\NormalTok{(employment\_rate)) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  ungroup }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{\textgreater{}=} \DecValTok{1969}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{arrange}\NormalTok{(date,}
-\NormalTok{          sex) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(date) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{y =}\NormalTok{ y }\SpecialCharTok{{-}} \FunctionTok{lag}\NormalTok{(y)) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  ungroup }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(sex }\SpecialCharTok{==} \StringTok{"male"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date,}
-             \AttributeTok{y =}\NormalTok{ y)}
-\NormalTok{         ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme\_bw}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
+\includegraphics{CPS_Japan_files/figure-latex/unnamed-chunk-4-1.pdf}
 
-\includegraphics{CPS_Japan_files/figure-latex/unnamed-chunk-5-1.pdf}
-
-\hypertarget{alternative-mesuare}{%
-\chapter{Alternative mesuare}\label{alternative-mesuare}}
-
-\hypertarget{year-to-year-difference-of-employment-rate-1}{%
-\section{Year-to-year difference of employment rate}\label{year-to-year-difference-of-employment-rate-1}}
-
-\begin{itemize}
-\tightlist
-\item
-  Report change of employment rate \(\tilde e_{g,m,y}=\frac{e_{g,m,y}}{e_{g,m,y-1}}\)
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{arrange}\NormalTok{(sex,}
-\NormalTok{          quaterly,}
-\NormalTok{          year) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(sex,}
-\NormalTok{           quaterly) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{y =}\NormalTok{ employment\_rate}\SpecialCharTok{/}\FunctionTok{lag}\NormalTok{(employment\_rate)) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  ungroup }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{\textgreater{}=} \DecValTok{1969}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date,}
-             \AttributeTok{y =}\NormalTok{ y,}
-             \AttributeTok{color =}\NormalTok{ sex)}
-\NormalTok{         ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{CPS_Japan_files/figure-latex/unnamed-chunk-6-1.pdf}
-
-\hypertarget{simple-description}{%
-\chapter{Simple description}\label{simple-description}}
+\hypertarget{simple-description-short-run}{%
+\chapter{Simple description: Short run}\label{simple-description-short-run}}
 
 \begin{itemize}
 \tightlist
 \item
   Describe labor market after 2019.
 \end{itemize}
+
+\hypertarget{environment-1}{%
+\section{Environment}\label{environment-1}}
+
+\hypertarget{data-1}{%
+\section{Data}\label{data-1}}
 
 \hypertarget{employment-rate-1}{%
 \section{Employment rate}\label{employment-rate-1}}
@@ -345,57 +168,16 @@
   Report \(e_{g,m,y} = \frac{Employment_{g,m,y}}{Population_{g,m,y}}\), where \(Employment_{g,m,y}\) and \(Population_{g,m,y}\) are numbers of employment and population over 15 years old in month \(m\), year \(y\) and gender group \(g\), respectively.
 \end{itemize}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{raw  }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{\textgreater{}=} \DecValTok{2019}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{y =}\NormalTok{ employment\_rate) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date,}
-             \AttributeTok{y =}\NormalTok{ y,}
-             \AttributeTok{color =}\NormalTok{ sex)}
-\NormalTok{         ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"employment rate"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \includegraphics{CPS_Japan_files/figure-latex/unnamed-chunk-7-1.pdf}
 
-\hypertarget{year-to-year-difference-of-employment-rate-2}{%
-\section{Year-to-year difference of employment rate}\label{year-to-year-difference-of-employment-rate-2}}
+\hypertarget{year-to-year-difference-of-employment-rate-1}{%
+\section{Year-to-year difference of employment rate}\label{year-to-year-difference-of-employment-rate-1}}
 
 \begin{itemize}
 \tightlist
 \item
-  Report change of employment rate \(\tilde e_{g,m,y}=e_{g,m,y}-e_{g,m,y-1}\)
+  Report change of employment rate \(\tilde e_{g,m,y}=e_{g,m,y}/e_{g,m,y-1}\)
 \end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{arrange}\NormalTok{(sex,}
-\NormalTok{          quaterly,}
-\NormalTok{          year) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(sex,}
-\NormalTok{           quaterly) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{y =}\NormalTok{ employment\_rate }\SpecialCharTok{{-}} \FunctionTok{lag}\NormalTok{(employment\_rate)) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  ungroup }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{\textgreater{}=} \DecValTok{2019}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date,}
-             \AttributeTok{y =}\NormalTok{ y,}
-             \AttributeTok{color =}\NormalTok{ sex)}
-\NormalTok{         ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
 \includegraphics{CPS_Japan_files/figure-latex/unnamed-chunk-8-1.pdf}
 
@@ -408,37 +190,56 @@
   Report change of employment rate \(\tilde e_{male,m,y} - \tilde e_{female,m,y}\)
 \end{itemize}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{raw }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{arrange}\NormalTok{(sex,}
-\NormalTok{          quaterly,}
-\NormalTok{          year) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(sex,}
-\NormalTok{           quaterly) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{y =}\NormalTok{ employment\_rate }\SpecialCharTok{{-}} \FunctionTok{lag}\NormalTok{(employment\_rate)) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  ungroup }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{\textgreater{}=} \DecValTok{1969}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{arrange}\NormalTok{(date,}
-\NormalTok{          sex) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(date) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{y =}\NormalTok{ y }\SpecialCharTok{{-}} \FunctionTok{lag}\NormalTok{(y)) }\SpecialCharTok{\%\textgreater{}\%}
-\NormalTok{  ungroup }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(sex }\SpecialCharTok{==} \StringTok{"male"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{\textgreater{}=} \DecValTok{2019}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date,}
-             \AttributeTok{y =}\NormalTok{ y)}
-\NormalTok{         ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\StringTok{""}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{theme\_bw}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
 \includegraphics{CPS_Japan_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\hypertarget{detail}{%
+\chapter{Detail}\label{detail}}
+
+\begin{itemize}
+\item
+  Describe labor market after 2011.
+\item
+  Report rates of workers who are employed primarily or partly.
+\end{itemize}
+
+\hypertarget{environment-2}{%
+\section{Environment}\label{environment-2}}
+
+\hypertarget{data-status}{%
+\section{Data status}\label{data-status}}
+
+\hypertarget{employment-rate-2}{%
+\section{Employment rate}\label{employment-rate-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  Report \(e_{g,m,y} = \frac{Employment_{g,m,y}}{Population_{g,m,y}}\), where \(Employment_{g,m,y}\) and \(Population_{g,m,y}\) are numbers of employment and population over 15 years old in month \(m\), year \(y\) and gender group \(g\), respectively.
+\end{itemize}
+
+\includegraphics{CPS_Japan_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\hypertarget{year-to-year-difference-of-employment-rate-2}{%
+\section{Year-to-year difference of employment rate}\label{year-to-year-difference-of-employment-rate-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  Report change of employment rate \(\tilde e_{g,m,y}=e_{g,m,y}/e_{g,m,y-1}\)
+\end{itemize}
+
+\includegraphics{CPS_Japan_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\hypertarget{gender-gap-2}{%
+\section{Gender gap}\label{gender-gap-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  Report change of employment rate \(\tilde e_{male,m,y}-\tilde e_{female,m,y}\)
+\end{itemize}
+
+\includegraphics{CPS_Japan_files/figure-latex/unnamed-chunk-14-1.pdf}
 
   \bibliography{book.bib,packages.bib}
 
