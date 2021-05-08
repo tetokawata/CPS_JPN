@@ -17,3 +17,9 @@ data-status
 employment-rate-2
 year-to-year-difference-of-employment-rate-2
 gender-gap-2
+working-hour
+environment-3
+data-status-1
+working-hour-1
+year-to-year-difference
+gender-gap-3

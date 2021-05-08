@@ -79,7 +79,7 @@ raw %>%
          ) +
   geom_line() +
   geom_point() +
-  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = 1) +
   ylab("") +
   xlab("") +
   theme_bw() +

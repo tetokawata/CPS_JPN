@@ -1,8 +1,8 @@
-# Detail
+# Working hour
 
 - Describe labor market after 2011.
 
-- Report rates of workers who are employed primarily or partly.
+- Report working hours.
 
 ## Environment
 
@@ -17,7 +17,10 @@ library(lubridate)
 
 ```{r}
 raw <- 
-  read_csv("data/aggregate_time_series.csv") %>%
+  read_csv("data/hour_time_series.csv")
+
+raw <- 
+  read_csv("data/hour_time_series.csv") %>%
   mutate(date = ymd(date),
          year = year(date),
          month = month(date),
@@ -25,20 +28,14 @@ raw <-
          quaterly = if_else(month >= 4 & month <= 6, 2, quaterly),
          quaterly = if_else(month >= 7 & month <= 9, 3, quaterly),
          quaterly = if_else(month >= 10 & month <= 12, 4, quaterly),
-         work = as.numeric(主に仕事),
-         work_study_house = as.numeric(`通学・家事などのかたわらに仕事`),
-         population = as.numeric(`15歳以上人口`),
+         hour = as.numeric(時間総数),
          sex = if_else(性別 == "男", "male", "female")
          ) %>%
   arrange(sex,year,quaterly) %>%
   group_by(sex,year,quaterly) %>%
-  mutate(work = sum(work),
-         work_study_house = sum(work_study_house),
-         population = sum(population)
+  mutate(hour = sum(hour)
          ) %>%
   ungroup %>%
-  mutate(work_rate = work/population,
-         work_study_house_rate = work_study_house/population) %>%
   filter(month == 1 | 
            month == 4 | 
            month == 7 | 
@@ -48,58 +45,44 @@ raw <-
          month,
          quaterly,
          sex,
-         work_rate,
-         work_study_house_rate) %>%
+         hour) %>%
   na.omit
 
 ```
 
-## Employment rate
+## Working hour
 
-- Report $e_{g,m,y} = \frac{Employment_{g,m,y}}{Population_{g,m,y}}$, where $Employment_{g,m,y}$ and $Population_{g,m,y}$ are numbers of employment and population over 15 years old in month $m$, year $y$ and gender group $g$, respectively.
+- Report $e_{g,m,y} = hour_{g,m,y}$, where $hour_{g,m,y}$ is working hours.
 
 ```{r}
 raw %>%
-  gather(work_rate,
-         work_study_house_rate,
-         key = "type",
-         value = "y") %>%
   ggplot(aes(x = date,
-             y = y,
-             color = sex,
-             linetype = type)
+             y = hour,
+             color = sex)
          ) +
   geom_line() +
   geom_point() +
   theme_bw() +
-  ylab("employment rate")
+  ylab("working hour")
 ```
 
-## Year-to-year difference of employment rate
+## Year-to-year difference
 
-- Report change of employment rate $\tilde e_{g,m,y}=e_{g,m,y}/e_{g,m,y-1}$
+- Report change $\tilde e_{g,m,y}=e_{g,m,y}/e_{g,m,y-1}$
 
 ```{r}
 raw %>%
-  gather(work_rate,
-         work_study_house_rate,
-         key = "type",
-         value = "y") %>%
   arrange(sex,
-          type,
           quaterly,
           year) %>%
   group_by(sex,
-           type,
            quaterly) %>%
-  mutate(y = y/lag(y)) %>%
+  mutate(y = hour/lag(hour)) %>%
   ungroup %>%
   filter(year >= 2013) %>%
   ggplot(aes(x = date,
              y = y,
-             color = sex,
-             linetype = type,
-             shape = type)
+             color = sex)
          ) +
   geom_line() +
   geom_point()  +
@@ -112,38 +95,28 @@ raw %>%
 
 ## Gender gap
 
-- Report change of employment rate $\tilde e_{male,m,y}-\tilde e_{female,m,y}$
+- $\tilde e_{male,m,y}-\tilde e_{female,m,y}$
 
 ```{r}
 raw %>%
-  gather(work_rate,
-         work_study_house_rate,
-         key = "type",
-         value = "y") %>%
   arrange(sex,
-          type,
           quaterly,
           year) %>%
   group_by(sex,
-           type,
            quaterly) %>%
-  mutate(y = y/lag(y)) %>%
+  mutate(y = hour/lag(hour)) %>%
   ungroup %>%
-  arrange(type,
-          quaterly,
+  arrange(quaterly,
           year,
           sex) %>%
-  group_by(type,
-           quaterly,
+  group_by(quaterly,
            year) %>%
   mutate(y = y - lag(y)) %>%
   ungroup %>%
   filter(year >= 2013) %>%
   na.omit %>%
   ggplot(aes(x = date,
-             y = y,
-             linetype = type,
-             shape = type)
+             y = y)
          ) +
   geom_line() +
   geom_point() +
