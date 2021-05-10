@@ -59,7 +59,7 @@ raw  %>%
   ylab("employment rate")
 ```
 
-## Year-to-year difference of employment rate
+## Year-to-year difference
 
 - Report change of employment rate $\tilde e_{g,m,y}=e_{g,m,y}/e_{g,m,y-1}$
 
