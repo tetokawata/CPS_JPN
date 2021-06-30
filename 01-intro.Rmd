@@ -15,10 +15,11 @@ library(lubridate)
 
 ```{r}
 raw <- 
-  read_csv("data/aggregate_time_series.csv") %>%
-  mutate(date = ymd(date),
-         year = year(date),
-         month = month(date),
+  read_csv("data/aggregate_time_series.csv") |> 
+  mutate(year = as.integer(str_split_fixed(date, "年", 2)[,1]),
+         month = str_split_fixed(date, "年", 2)[,2],
+         month = as.integer(str_split_fixed(month, "月", 2)[,1]),
+         date = make_date(year, month),
          quaterly = if_else(month >= 1 & month <= 3, 1, 0),
          quaterly = if_else(month >= 4 & month <= 6, 2, quaterly),
          quaterly = if_else(month >= 7 & month <= 9, 3, quaterly),
@@ -26,14 +27,14 @@ raw <-
          employment = as.numeric(就業者),
          population = as.numeric(`15歳以上人口`),
          sex = if_else(性別 == "男", "male", "female")
-         ) %>%
-  arrange(sex,year,quaterly) %>%
-  group_by(sex,year,quaterly) %>%
+         ) |> 
+  arrange(sex,year,quaterly) |> 
+  group_by(sex,year,quaterly) |> 
   mutate(employment = sum(employment),
          population = sum(population)
-         ) %>%
-  ungroup %>%
-  mutate(employment_rate = employment/population) %>%
+         ) |> 
+  ungroup() |> 
+  mutate(employment_rate = employment/population) |> 
   filter(month == 1 | 
            month == 4 | 
            month == 7 | 
@@ -46,8 +47,8 @@ raw <-
 - Report $e_{g,m,y} = \frac{Employment_{g,m,y}}{Population_{g,m,y}}$, where $Employment_{g,m,y}$ and $Population_{g,m,y}$ are numbers of employment and population over 15 years old in month $m$, year $y$ and gender group $g$, respectively.
 
 ```{r}
-raw %>%
-  mutate(y = employment_rate) %>%
+raw |> 
+  mutate(y = employment_rate) |> 
   ggplot(aes(x = date,
              y = y,
              color = sex)
@@ -62,15 +63,15 @@ raw %>%
 - Report change of employment rate $\tilde e_{g,m,y}=e_{g,m,y}/e_{g,m,y-1}$
 
 ```{r y_to_y}
-raw %>%
+raw |> 
   arrange(sex,
           quaterly,
-          year) %>%
+          year) |> 
   group_by(sex,
-           quaterly) %>%
-  mutate(y = employment_rate/lag(employment_rate)) %>%
-  ungroup %>%
-  filter(year >= 1969) %>%
+           quaterly) |> 
+  mutate(y = employment_rate/lag(employment_rate)) |> 
+  ungroup() |> 
+  filter(year >= 1969) |> 
   ggplot(aes(x = date,
              y = y,
              color = sex)
@@ -88,21 +89,21 @@ raw %>%
 - Report change of employment rate $\tilde e_{male,m,y} - \tilde e_{female,m,y}$
 
 ```{r}
-raw %>%
+raw |> 
   arrange(sex,
           quaterly,
-          year) %>%
+          year) |> 
   group_by(sex,
-           quaterly) %>%
-  mutate(y = employment_rate/lag(employment_rate)) %>%
-  ungroup %>%
-  filter(year >= 1969) %>%
+           quaterly) |> 
+  mutate(y = employment_rate/lag(employment_rate)) |> 
+  ungroup() |> 
+  filter(year >= 1969) |> 
   arrange(date,
-          sex) %>%
-  group_by(date) %>%
-  mutate(y = y - lag(y)) %>%
-  ungroup %>%
-  filter(sex == "male") %>%
+          sex) |> 
+  group_by(date) |> 
+  mutate(y = y - lag(y)) |> 
+  ungroup() |> 
+  filter(sex == "male") |> 
   ggplot(aes(x = date,
              y = y)
          ) +

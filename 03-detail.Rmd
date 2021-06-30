@@ -17,41 +17,44 @@ library(lubridate)
 
 ```{r}
 raw <- 
-  read_csv("data/aggregate_time_series.csv") %>%
-  mutate(date = ymd(date),
-         year = year(date),
-         month = month(date),
+  read_csv("data/aggregate_time_series.csv") |> 
+  mutate(year = as.integer(str_split_fixed(date, "年", 2)[,1]),
+         month = str_split_fixed(date, "年", 2)[,2],
+         month = as.integer(str_split_fixed(month, "月", 2)[,1]),
+         date = make_date(year, month),
          quaterly = if_else(month >= 1 & month <= 3, 1, 0),
          quaterly = if_else(month >= 4 & month <= 6, 2, quaterly),
          quaterly = if_else(month >= 7 & month <= 9, 3, quaterly),
          quaterly = if_else(month >= 10 & month <= 12, 4, quaterly),
+         employment = as.numeric(就業者),
+         population = as.numeric(`15歳以上人口`),
+         sex = if_else(性別 == "男", "male", "female"),
          work = as.numeric(主に仕事),
          work_study_house = as.numeric(`通学・家事などのかたわらに仕事`),
          population = as.numeric(`15歳以上人口`),
          sex = if_else(性別 == "男", "male", "female")
-         ) %>%
-  arrange(sex,year,quaterly) %>%
-  group_by(sex,year,quaterly) %>%
+         ) |> 
+  arrange(sex,year,quaterly) |> 
+  group_by(sex,year,quaterly) |> 
   mutate(work = sum(work),
          work_study_house = sum(work_study_house),
          population = sum(population)
-         ) %>%
-  ungroup %>%
+         ) |> 
+  ungroup() |> 
   mutate(work_rate = work/population,
-         work_study_house_rate = work_study_house/population) %>%
+         work_study_house_rate = work_study_house/population) |> 
   filter(month == 1 | 
            month == 4 | 
            month == 7 | 
-           month == 10) %>%
+           month == 10) |> 
   select(date,
          year,
          month,
          quaterly,
          sex,
          work_rate,
-         work_study_house_rate) %>%
-  na.omit
-
+         work_study_house_rate) |> 
+  na.omit()
 ```
 
 ## Employment rate
@@ -59,11 +62,11 @@ raw <-
 - Report $e_{g,m,y} = \frac{Employment_{g,m,y}}{Population_{g,m,y}}$, where $Employment_{g,m,y}$ and $Population_{g,m,y}$ are numbers of employment and population over 15 years old in month $m$, year $y$ and gender group $g$, respectively.
 
 ```{r}
-raw %>%
+raw |> 
   gather(work_rate,
          work_study_house_rate,
          key = "type",
-         value = "y") %>%
+         value = "y") |> 
   ggplot(aes(x = date,
              y = y,
              color = sex,
@@ -84,17 +87,17 @@ raw %>%
   gather(work_rate,
          work_study_house_rate,
          key = "type",
-         value = "y") %>%
+         value = "y") |> 
   arrange(sex,
           type,
           quaterly,
-          year) %>%
+          year) |> 
   group_by(sex,
            type,
-           quaterly) %>%
-  mutate(y = y/lag(y)) %>%
-  ungroup %>%
-  filter(year >= 2013) %>%
+           quaterly) |> 
+  mutate(y = y/lag(y)) |> 
+  ungroup() |> 
+  filter(year >= 2013) |> 
   ggplot(aes(x = date,
              y = y,
              color = sex,
@@ -119,27 +122,27 @@ raw %>%
   gather(work_rate,
          work_study_house_rate,
          key = "type",
-         value = "y") %>%
+         value = "y") |> 
   arrange(sex,
           type,
           quaterly,
-          year) %>%
+          year) |> 
   group_by(sex,
            type,
-           quaterly) %>%
-  mutate(y = y/lag(y)) %>%
-  ungroup %>%
+           quaterly) |> 
+  mutate(y = y/lag(y)) |> 
+  ungroup() |> 
   arrange(type,
           quaterly,
           year,
-          sex) %>%
+          sex) |> 
   group_by(type,
            quaterly,
-           year) %>%
-  mutate(y = y - lag(y)) %>%
-  ungroup %>%
-  filter(year >= 2013) %>%
-  na.omit %>%
+           year) |> 
+  mutate(y = y - lag(y)) |> 
+  ungroup() |> 
+  filter(year >= 2013) |> 
+  na.omit() |> 
   ggplot(aes(x = date,
              y = y,
              linetype = type,
